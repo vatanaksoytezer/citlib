@@ -79,6 +79,21 @@ def parse_order(file):
             order = line[idx+2]
             return int(order)
 
+
+def delete_coverage_criterion(file):
+    with open(file, "r+") as f:
+        d = f.readlines()
+        f.seek(0)
+        for i in d:
+            if "entity" in i and ":-" in i:
+                if "covered" in i:
+                    f.write(i)
+                else:
+                    pass
+            else:    
+                f.write(i)
+        f.truncate()
+
 if __name__ == "__main__":
     generator = ASPGenerator()
     file_int = 0
@@ -88,7 +103,10 @@ if __name__ == "__main__":
     user_file = dirname + "/" + "user.lp"
     order = parse_order(user_file)
     while True:
-        generator.generate("generated.lp", "system_model.lp", "user.lp", "testcase.lp", file1)
+        # generator.generate("generated.lp", "system_model.lp", "testcase.lp", "maximize.lp", "coverage_criterion.lp", file1)
+        generator.generate("generated.lp", "system_model.lp", "testcase.lp", "coverage_criterion.lp", file1)
+        # Delete annnoying line
+        delete_coverage_criterion("generated.lp")
         # Get order here
         output = generator.run()
         print(output)

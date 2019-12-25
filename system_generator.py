@@ -1,14 +1,17 @@
 from subprocess import Popen, PIPE
 import os, glob, importlib, sys
+from compile_bool_exprs import *
 
 class ASPGenerator:
 
     def __init__(self):
-        self.keywords = ["##"]
+        self.keywords = ["##", "bool_expr", "edge_guard"]
         self.output_file = ""
         self.output_content = ""
         self.dirname, _ = os.path.split(os.path.abspath(__file__))
         self.timeout = 0
+        self.bool_exprs = []
+        self.edge_pairs = []
 
     def read_file(self, filename):
         file = open(filename, "r")
@@ -97,6 +100,12 @@ class ASPGenerator:
                     self.append_to_file("\n", self.output_file)
                 elif "def" in line:
                     self.timeout = line.split("=")[1].strip("\n")
+            elif self.keywords[1] in line:
+                self.bool_exprs.append(line)
+            elif self.keywords[2] in line:
+                pairs = self.parse_edge_pairs(line)
+                if pairs:
+                    self.edge_pairs.append(pairs)
             else:
                 # print(line)
                 self.append_to_file(line, self.output_file)
@@ -118,7 +127,7 @@ class ASPGenerator:
             if line[0] == "%":
                 self.append_to_file(line, self.output_file)
             else:
-                if line.find("entity") != -1:
+                if line.find("entity(") != -1:
                     line_output += line.replace(":-", ",") + "\n"
                     output += line_output
         
@@ -127,6 +136,33 @@ class ASPGenerator:
         self.append_to_file(output, self.output_file)
             
 
+    def add_bool_exprs(self):
+        content = compile_bool_exprs(self.bool_exprs)
+        self.append_to_file(content, self.output_file)
+
+    # Detonates edges
+    def detonate_edge(self, s1, s2):
+        with open(self.output_file, "r+") as f:
+            d = f.readlines()
+            f.seek(0)
+            for i in d:
+                if "edge" in i:
+                    if str(s1) in i and str(s2) in i:
+                        pass
+                    else:
+                        f.write(i)
+                else:    
+                    f.write(i)
+            f.truncate()
+
+    def parse_edge_pairs(self, content):
+        # if contains f (smthng like d1f)
+        if "f" in content:
+            edges_str = content.split(")")[0].split("(")[1]
+            edges = edges_str.split(",")
+            return edges
+        else:
+            return None
 
     def clean_file(self, filename):
         file = open(filename, "w")
@@ -140,8 +176,8 @@ class ASPGenerator:
             # Special case
             # print(input_file)
             # TODO: Change this
-            # if input_file == "coverage_criterion.lp":
-            if input_file == "nothing.lp":
+            if input_file == "coverage_criterion.lp":
+            # if input_file == "nothing.lp":
                 input_file = self.dirname + "/" + input_file
                 input_content = self.read_file(input_file)
                 self.parse_input(input_content)
@@ -150,6 +186,14 @@ class ASPGenerator:
                 input_file = self.dirname + "/" + input_file
                 input_content = self.read_file(input_file)
                 self.parse_input(input_content)
+        # Bool adder :P
+        self.add_bool_exprs()
+        # Edge remover xD
+        for edge_pair in self.edge_pairs:
+            s1 = edge_pair[0]
+            s2 = edge_pair[1]
+            self.detonate_edge(s1, s2)
+
 
     def get_response(self, script):
         response = Popen([script],stdout=PIPE,shell=True)

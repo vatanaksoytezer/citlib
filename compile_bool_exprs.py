@@ -74,7 +74,7 @@ def bool_exprs_to_clingo(exprs):
     # now, declare the variables
     var_decs = '% boolean variables\n'
     for var in all_vars:
-        var_decs += "1 {parameter(global, %s, true); parameter(global, %s, false)} 1.\n" % (var, var)
+        var_decs += "1{parameter(global, %s, true); parameter(global, %s, false)}1.\n" % (var, var)
         #var_decs += "1 {true(%s);false(%s)} 1.\n" % (var, var)
     var_decs += '\n'
 
@@ -111,5 +111,5 @@ exprs = ["bool_expr(d2t, (k & l) | m).",
          "bool_expr(d2f, ~((k & l) | m))."]
 
 asp = compile_bool_exprs(exprs)
-print(asp)
+# print(asp)
  
