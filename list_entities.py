@@ -10,11 +10,33 @@ def find_word(word, len, output):
         idx = output.find(word)
     return words
 
+def find_word_fixed(word, output, order):
+    idx = output.find(word)
+    len_word = len(word)
+    words = []
+    while(idx >= 0):
+        if(output[idx+6] == "_"):
+            pass
+        edges = ""
+        lookup = output[idx:idx+len_word+order*5]
+        for i in range(order):
+            if i==0:
+                edges += lookup.split(",")[i].split("(")[1]
+            elif i==order-1:
+                edges += lookup.split(",")[i].split(")")[0]
+            else:
+                edges += lookup.split(",")[i]
+        words.append(output[idx:idx+len_word+len(edges)+order])
+        output = output[idx+1:]
+        idx = output.find(word)
+    return words
+        
 def parse_entities(output, order):
     word = "entity("
     # get order somehow
-    len = 7 + 2*order
-    entities = find_word(word, len, output)
+    # len = 7 + 2*order
+    # entities = find_word(word, len, output)
+    entities = find_word_fixed(word, output, order)
     return entities
 
 def list_to_str(ls):
@@ -48,6 +70,7 @@ if __name__ == "__main__":
     generator = ASPGenerator()
     generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "system_model.lp")
     output = generator.run()
+    print(output)
     # Get order here
     dirname, _ = os.path.split(os.path.abspath(__file__))
     user_file = dirname + "/" + "user.lp"

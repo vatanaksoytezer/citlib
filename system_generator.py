@@ -102,10 +102,10 @@ class ASPGenerator:
                     self.timeout = line.split("=")[1].strip("\n")
             elif self.keywords[1] in line:
                 self.bool_exprs.append(line)
-            elif self.keywords[2] in line:
-                pairs = self.parse_edge_pairs(line)
-                if pairs:
-                    self.edge_pairs.append(pairs)
+            # elif self.keywords[2] in line:
+            #     pairs = self.parse_edge_pairs(line)
+            #     if pairs:
+            #         self.edge_pairs.append(pairs)
             else:
                 # print(line)
                 self.append_to_file(line, self.output_file)
@@ -189,10 +189,10 @@ class ASPGenerator:
         # Bool adder :P
         self.add_bool_exprs()
         # Edge remover xD
-        for edge_pair in self.edge_pairs:
-            s1 = edge_pair[0]
-            s2 = edge_pair[1]
-            self.detonate_edge(s1, s2)
+        # for edge_pair in self.edge_pairs:
+        #     s1 = edge_pair[0]
+        #     s2 = edge_pair[1]
+        #     self.detonate_edge(s1, s2)
 
 
     def get_response(self, script):
@@ -204,7 +204,8 @@ class ASPGenerator:
         # Run clingo here
         # clingo_script = "clingo -n 0 --time-limit 0 " + self.output_file
         if not file1:
-            clingo_script = "clingo -n 0 --time-limit " + self.timeout + " " + self.output_file
+            # clingo_script = "clingo -n 0 --time-limit " + self.timeout + " " + self.output_file
+            clingo_script = "clingo --time-limit " + self.timeout + " " + self.output_file
         else:
             pass
             # clingo_script = "clingo -n 0 --time-limit " + self.timeout + " " + self.output_file + "" + file1

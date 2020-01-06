@@ -19,11 +19,31 @@ def find_word(word, len, output):
         idx = output.find(word)
     return words
 
+def find_word_fixed(word, output, order):
+    idx = output.find(word)
+    len_word = len(word)
+    words = []
+    while(idx >= 0):
+        edges = ""
+        lookup = output[idx:idx+len_word+order*5]
+        for i in range(order):
+            if i==0:
+                edges += lookup.split(",")[i].split("(")[1]
+            elif i==order-1:
+                edges += lookup.split(",")[i].split(")")[0]
+            else:
+                edges += lookup.split(",")[i]
+        words.append(output[idx:idx+len_word+len(edges)+order])
+        output = output[idx+1:]
+        idx = output.find(word)
+    return words
+
 def parse_entities(output, order):
     word = "entity_covered("
     # get order somehow
-    length = 15 + 2*order
-    entities = find_word(word, length, output)
+    # length = 15 + 2*order
+    # entities = find_word(word, length, output)
+    entities = find_word_fixed(word, output, order)
     # print(entities)
     for i in range(len(entities)):
         entity = entities[i]
@@ -110,12 +130,14 @@ if __name__ == "__main__":
         # Get order here
         output = generator.run()
         print(output)
+        testcase_file = dirname + "/" + "testcase" + str(file_int) + ".lp"
+        write_to_file(output,testcase_file)
         lines = output.split("\n")
         # This means we found an optimum solution
         line_idx = get_line_idx(lines)
         if line_idx > 0:
             entities = parse_entities(lines[line_idx], order)
-            print(entities)
+            # print(entities)
             diff_entities = get_diff_entities(file1,entities)
             # print(diff_entities)
             entities_str = list_to_str(diff_entities)

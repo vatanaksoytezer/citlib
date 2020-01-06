@@ -35,4 +35,4 @@ def generate(t=3):
 
 if __name__ == "__main__":
     # Arg is order
-    generate(sys.argv[0])
+    generate()

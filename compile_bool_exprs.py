@@ -109,6 +109,8 @@ def compile_bool_exprs(bool_exprs):
 # the second one is the expression itself
 exprs = ["bool_expr(d2t, (k & l) | m).",
          "bool_expr(d2f, ~((k & l) | m))."]
+ 
+# exprs1 = ["bool_expr(d1t, a).", "bool_expr(d1f, ~a)."]
 
 asp = compile_bool_exprs(exprs)
 # print(asp)

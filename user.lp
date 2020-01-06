@@ -1,4 +1,5 @@
 % ##import(citlib.flow)
+% ##import(citlib.flow)
 % ##import(citlib.graphs.c)
 % ##import(citlib.any,t=2)
 ##import(citlib.reachability)
@@ -12,11 +13,8 @@
 % Set timeout for clingo
 
 % Make this generic, key value dictionary for any variable
-##define timeout=2
+##define timeout=10
 
-% #show flow/3.
-bool_expr(d2t, (a & ~b) | c).
-bool_expr(d2f, ~((a & ~b) | c)).
 
-edge_guard(1,2) :- d2t.
+% edge_guard(1,2) :- d2t.
 % edge_guard(1,3) :- d2f.
