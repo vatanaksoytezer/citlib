@@ -9,17 +9,6 @@ def get_letters(t):
         letters.append(letter)
     return letters
 
-def add_n_times(str, letter, times, end):
-    # if end = 0 add to begining
-    # if end = 1 add to end
-    for i in range(times):
-        str += letter
-        if (i == times-1) and end == 1:
-            pass
-        else:
-            str += ","
-    return str
-
 def generate(t=3):
     dirname, _ = os.path.split(os.path.abspath(__file__))
     file = dirname + "/../generated/" + "path_dependent_order" + str(t) + ".lp"

@@ -205,7 +205,7 @@ class ASPGenerator:
         # clingo_script = "clingo -n 0 --time-limit 0 " + self.output_file
         if not file1:
             # clingo_script = "clingo -n 0 --time-limit " + self.timeout + " " + self.output_file
-            clingo_script = "clingo --time-limit " + self.timeout + " " + self.output_file
+            clingo_script = "clingo -n 0 --project --time-limit " + self.timeout + " " + self.output_file
         else:
             pass
             # clingo_script = "clingo -n 0 --time-limit " + self.timeout + " " + self.output_file + "" + file1

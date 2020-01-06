@@ -1,1 +1,0 @@
-1{order(A,B)}1 :- reaches(A,B).

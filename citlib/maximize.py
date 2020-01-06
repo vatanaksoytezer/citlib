@@ -40,6 +40,7 @@ def generate(t=3):
         else:
             content += letters[i]  + ","
 
+    print(content)
     f = open(file, "w")
     f.write(content)
     f.close()

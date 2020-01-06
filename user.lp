@@ -7,7 +7,7 @@
 % TODO: We may want nonconsec to call any as a dependency
 % ##import(citlib.nonconsec,t=2)
 % ##import(citlib.all-entity)
-##import(citlib.ordernew,t=3)
+##import(citlib.ordernew,t=2)
 % ##import(citlib.ordernew,t=2)
 
 % Set timeout for clingo
