@@ -80,7 +80,7 @@ def file_to_str(filename):
     return data
 
 # File vs entites list
-# Will write the diffe
+# Will write the differences
 def get_diff_entities(file1, current_entities):
     entities_list_1 = file_to_str(file1).split(".\n")[:-1] # discard the last line
     diff_entities = []

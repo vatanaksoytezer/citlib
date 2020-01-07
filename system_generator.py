@@ -41,15 +41,27 @@ class ASPGenerator:
         command = line[9:len(line)-2]
         filename = self.dirname + "/"
         names = command.split(".")
+        keyword_hash = {}
         for name in names:
             if name == names[-1]:
-                # May delete this if below
-                if ",t=" in name:
+                hash_str = name
+                while "," in hash_str:
+                    idx = name.index(",")
+                    hash_str = name[idx+1:]
+                    element = hash_str.split(",")[0]
+                    # do the split here
+                    try:
+                        key, val = element.split("=")
+                        keyword_hash[key] = val
+                    except:
+                        # print("Paramater not in correct format !")
+                        break
+                
+                if "t" in keyword_hash.keys():
                     num = int(name.split("=")[1])
                     if num >= 2:
                         f = name.split(",")[0]
                         self.generate_file(f, num)
-                        # print(f)
                         filename += f + str(num) + ".lp"
                     else:
                         print("Order is less than 2, exiting!")
