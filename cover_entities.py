@@ -130,7 +130,7 @@ if __name__ == "__main__":
         # Get order here
         output = generator.run()
         print(output)
-        testcase_file = dirname + "/" + "testcase" + str(file_int) + ".lp"
+        testcase_file = dirname + "/" + "testcase" + "_" + str(file_int)
         write_to_file(output,testcase_file)
         lines = output.split("\n")
         # This means we found an optimum solution

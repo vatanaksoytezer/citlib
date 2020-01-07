@@ -18,7 +18,7 @@ reached(global).
 :- flow(A,B,1), flow(C,B,1), A!=C.
 flow_num(A,B,1) :- start(A), edge(A,B), flow(A,B,_).
 flow_num(B,C,N) :- flow_num(A,B,N-1), flow(B,C,_).
-:- T = #sum{E,A: flow(A,B,E), start(A), edge(A,B)}, T!=1.
-:- T = #sum{E,B: flow(A,B,E), stop(B), edge(A,B)}, T!=1.
+% :- T = #sum{E,A: flow(A,B,E), start(A), edge(A,B)}, T!=1.
+% :- T = #sum{E,B: flow(A,B,E), stop(B), edge(A,B)}, T!=1.
 
 #show flow_num/3.

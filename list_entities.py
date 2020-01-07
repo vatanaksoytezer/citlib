@@ -1,5 +1,6 @@
 from system_generator import ASPGenerator
 import os
+import sys
 
 def find_word(word, len, output):
     idx = output.find(word)
@@ -68,7 +69,13 @@ def parse_order(file):
 
 if __name__ == "__main__":
     generator = ASPGenerator()
-    generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "system_model.lp")
+    arg_count = len(sys.argv) - 1
+    if arg_count == 3:
+        generator.generate("generated.lp", sys.argv[1],  sys.argv[2],  sys.argv[3])
+    elif arg_count == 0:
+        generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "system_model.lp")
+    else:
+        print("Please enter necessary files as arguments ")
     output = generator.run()
     print(output)
     # Get order here
