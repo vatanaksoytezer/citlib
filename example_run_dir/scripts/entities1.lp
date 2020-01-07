@@ -1,0 +1,14 @@
+entity(0,1).
+entity(1,3).
+entity(3,4).
+entity(5,6).
+entity(1,6).
+entity(4,6).
+entity(3,5).
+entity(0,5).
+entity(0,4).
+entity(0,3).
+entity(0,2).
+entity(2,6).
+entity(3,6).
+entity(0,6).
