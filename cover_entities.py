@@ -115,6 +115,22 @@ def delete_coverage_criterion(file):
                 f.write(i)
         f.truncate()
 
+def optimum_parser(content):
+    lines = content.split("\n")
+    idx = -1
+    output = ""
+    try:
+        for i in range(len(content)):
+            if "OPTIMUM FOUND" in lines[i]:
+                idx = i
+                break
+        for line in lines[idx-2:]:
+            output += line + "\n"
+    except:
+        pass
+    return output
+
+
 if __name__ == "__main__":
     generator = ASPGenerator()
     arg_count = len(sys.argv) - 1
@@ -140,8 +156,13 @@ if __name__ == "__main__":
         # Get order here
         output = generator.run()
         print(output)
+        # Writing to file
         testcase_file = dirname + "/" + "testcase" + "_" + str(file_int)
-        write_to_file(output,testcase_file)
+        # Parse only the optimum result, why ? :D
+        parsed = optimum_parser(output)
+        if parsed != "":
+            write_to_file(parsed, testcase_file)
+
         lines = output.split("\n")
         # This means we found an optimum solution
         line_idx = get_line_idx(lines)

@@ -1,9 +1,11 @@
 #!/bin/sh
 
-if [[ $# -eq 0 ]] ; then
+if [ $# -eq 0 ]
+  then
     echo 'No arguments provided, to run ucit tool a directory should be given'
     exit 1
 fi
+
 cd $1
 PROJDIR=$(pwd)
 # User file
