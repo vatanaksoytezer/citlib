@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 .vscode/
+example_run_dir/scripts
+example_run_dir/ucit_objects
+example_run_dir/generated

@@ -1,5 +1,6 @@
 from system_generator import ASPGenerator
 import os
+import sys
 
 def read_file(filename):
     file = open(filename, "r")
@@ -116,6 +117,7 @@ def delete_coverage_criterion(file):
 
 if __name__ == "__main__":
     generator = ASPGenerator()
+    arg_count = len(sys.argv) - 1
     file_int = 0
     file1 = "entities0.lp"
     # big while starts here
@@ -124,7 +126,15 @@ if __name__ == "__main__":
     order = parse_order(user_file)
     while True:
         # generator.generate("generated.lp", "system_model.lp", "testcase.lp", "maximize.lp", "coverage_criterion.lp", file1)
-        generator.generate("generated.lp", "system_model.lp", "testcase.lp", "coverage_criterion.lp", file1)
+        # generator.generate("generated.lp", "system_model.lp", "testcase.lp", "coverage_criterion.lp", file1)
+
+        if arg_count == 3:
+            generator.generate("generated.lp", sys.argv[1],  sys.argv[2],  sys.argv[3], file1)
+        elif arg_count == 0:
+            generator.generate("generated.lp", "system_model.lp", "testcase.lp", "coverage_criterion.lp", file1)
+        else:
+            print("Please enter necessary files as arguments ")
+            
         # Delete annnoying line
         delete_coverage_criterion("generated.lp")
         # Get order here
