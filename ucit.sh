@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [[ $# -eq 0 ]] ; then
     echo 'No arguments provided, to run ucit tool a directory should be given'
     exit 1
