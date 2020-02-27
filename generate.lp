@@ -1,3 +1,4 @@
+% Put these to coverage criterion
 ##import(citlib.reachability)
 ##import(citlib.ordernew,t=2)
 % Set timeout for clingo

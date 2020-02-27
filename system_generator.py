@@ -236,7 +236,7 @@ class ASPGenerator:
 if __name__ == "__main__":
     generator = ASPGenerator()
     # generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "testcase.lp")
-    generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "system_model.lp")
+    generator.generate("generated.lp", "generate.lp", "coverage_criterion.lp", "system_model.lp")
     output = generator.run()
     # print(output)
     # Clean all generated files

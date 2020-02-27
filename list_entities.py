@@ -73,14 +73,14 @@ if __name__ == "__main__":
     if arg_count == 3:
         generator.generate("generated.lp", sys.argv[1],  sys.argv[2],  sys.argv[3])
     elif arg_count == 0:
-        generator.generate("generated.lp", "user.lp", "coverage_criterion.lp", "system_model.lp")
+        generator.generate("generated.lp", "generate.lp", "coverage_criterion.lp", "system_model.lp")
     else:
         print("Please enter necessary files as arguments ")
     output = generator.run()
     print(output)
     # Get order here
     dirname, _ = os.path.split(os.path.abspath(__file__))
-    user_file = dirname + "/" + "user.lp"
+    user_file = dirname + "/" + "generate.lp"
     order = parse_order(user_file)
     # order = 3
 

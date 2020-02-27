@@ -138,7 +138,7 @@ if __name__ == "__main__":
     file1 = "entities0.lp"
     # big while starts here
     dirname, _ = os.path.split(os.path.abspath(__file__))
-    user_file = dirname + "/" + "user.lp"
+    user_file = dirname + "/" + "generate.lp"
     order = parse_order(user_file)
     while True:
         # generator.generate("generated.lp", "system_model.lp", "testcase.lp", "maximize.lp", "coverage_criterion.lp", file1)

@@ -1,0 +1,1 @@
+{order(A,B):flow(A,_,_), flow(_,B,_)}.

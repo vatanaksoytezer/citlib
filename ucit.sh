@@ -9,7 +9,7 @@ fi
 cd $1
 PROJDIR=$(pwd)
 # User file
-USER="$PROJDIR/user.lp"
+USER="$PROJDIR/generate.lp"
 # Coverage Criterion
 COV="$PROJDIR/coverage_criterion.lp"
 # Testcase
@@ -36,7 +36,7 @@ mv ~/citlib/entities* ~/citlib/testcase_* $PROJDIR/ucit_objects
 mv ~/citlib/generated $PROJDIR/scripts
 # Clean up the lib
 sh ~/citlib/clean_files.sh
-rm -rf ~/citlib/user.lp ~/citlib/coverage_criterion.lp ~/citlib/testcase.lp ~/citlib/system_model.lp
+rm -rf ~/citlib/generate.lp ~/citlib/coverage_criterion.lp ~/citlib/testcase.lp ~/citlib/system_model.lp
 # Go back to project directory
 cd $PROJDIR
 
