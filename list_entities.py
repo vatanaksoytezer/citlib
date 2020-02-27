@@ -31,7 +31,23 @@ def find_word_fixed(word, output, order):
         output = output[idx+1:]
         idx = output.find(word)
     return words
-        
+
+def parse_entities_fixed(output):
+    output_words = output.split(" ")
+    entities = []
+    for word in output_words:
+        if "entity_" in word:
+            pass
+        elif "entity" in word:
+            if "\n" in word:
+                new_word = word.split("\n")[1]
+                entities.append(new_word)
+            else:
+                entities.append(word)
+        else:
+            pass
+    return entities
+
 def parse_entities(output, order):
     word = "entity("
     # get order somehow
@@ -77,15 +93,15 @@ if __name__ == "__main__":
     else:
         print("Please enter necessary files as arguments ")
     output = generator.run()
-    print(output)
+    # print(output)
     # Get order here
     dirname, _ = os.path.split(os.path.abspath(__file__))
     user_file = dirname + "/" + "generate.lp"
     order = parse_order(user_file)
     # order = 3
-
     # List Entities
-    entities = parse_entities(output, order)
+    entities = parse_entities_fixed(output)
+    # entities = parse_entities(output, order)
     entities_str = list_to_str(entities)
     write_to_file(entities_str, "entities0.lp")
     # generator.clean()

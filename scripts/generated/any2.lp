@@ -1,0 +1,1 @@
+:- T = #sum{E,A,B: flow(_,A,E),flow(_,B,E),order(A,B)}, T!=1.

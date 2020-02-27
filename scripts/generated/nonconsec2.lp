@@ -1,0 +1,1 @@
+:- T1 = #sum{E1: flow(A,B,E1), order(A,B)},T1>=1.
